@@ -1,0 +1,38 @@
+# --- Audio: never commit source recordings ---
+*.wav
+*.aif
+*.aiff
+*.mp3
+*.m4a
+*.flac
+*.caf
+data/audio/
+
+# --- Logic Pro ---
+*.logicx
+*.logicx/
+Bounces/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# --- Jupyter: strip outputs before committing, or use nbstripout ---
+# (notebooks themselves ARE committed)
+
+# --- macOS ---
+.DS_Store
+._*
+
+# --- Editors ---
+.vscode/
+.idea/
+
+# --- Generated figures are committed; scratch output is not ---
+results/scratch/
