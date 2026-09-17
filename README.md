@@ -1,7 +1,7 @@
-# Spectral Characteristics of Novice and Expert-Revised Mixes
+# Reference-Based Mix Feedback
 
-A paired-comparison study of how expert mixing revisions change the spectral
-and dynamic properties of the same musical material.
+Turning the spectral distance between a rough mix and a reference track into
+mixing guidance a beginner can act on.
 
 **Status:** in progress (see [Milestones](../../milestones)) · **Last updated:** TBD
 
@@ -9,47 +9,49 @@ and dynamic properties of the same musical material.
 
 ## Research question
 
-> How do a novice's mixes and an expert's revisions of those same mixes differ
-> systematically in spectral characteristics?
+> Can the spectral difference between an amateur mix and a reference track be
+> translated into specific, actionable mixing guidance — and does that guidance
+> agree with what an experienced engineer actually does to the same mix?
 
 ## Motivation
 
-Producing a mix that "sounds right" appears to require either expensive plugins
-or a trained ear capable of getting there with stock tools. Without either, a
-producer is left knowing something is wrong but not what. This project attempts
-to quantify that gap on a small set of paired examples, using the same source
-material mixed twice — once by a novice, once revised by an instructor.
+Getting a mix to sound right seems to require either expensive plugins or an ear
+trained well enough to get there with stock tools. Without either, a producer is
+stuck knowing something is wrong but not what, or where. Reference tracks are the
+standard advice for closing that gap, but comparing by ear is exactly the skill
+the beginner doesn't have yet.
+
+This project asks whether the comparison can be made explicit. Not "does this
+sound like the reference" but "your 200–500 Hz band sits 4 dB above the
+reference; that region is where the muddiness you're hearing lives."
+
+## Approach
+
+1. **Normalize.** Reference tracks are mastered and will be far louder than a
+   rough mix. Without loudness matching, every comparison is dominated by level.
+2. **Extract.** Band energy distribution, spectral centroid, rolloff, flatness,
+   dynamic range, stereo width.
+3. **Difference.** Compare the mix against the reference feature by feature.
+4. **Translate.** Map differences that exceed a threshold onto concrete
+   suggestions, with the band, the direction, and the magnitude stated.
+5. **Validate.** Run the system on mixes that an instructor later revised, and
+   check whether the suggested direction matches the revision actually made.
+
+Step 5 is what keeps this from being a plausible-sounding heuristic. The
+validation pairs are limited in number and that limit is reported, not hidden.
 
 ## Data
 
-Each pair consists of two mixes of an identical arrangement: the author's own
-mix and an instructor's revision of it. Because both versions originate from the
-same session, the only variable is the mixing treatment itself.
+| Role | Source | Notes |
+|---|---|---|
+| Mixes under analysis | Own recordings and coursework | TBD |
+| Reference tracks | Commercial releases in comparable styles | Not redistributed |
+| Validation pairs | Coursework mixes with an instructor's revision | TBD, small n |
 
-| | |
-|---|---|
-| Pairs | TBD |
-| Source | Logic Pro projects from a MIDI coursework sequence |
-| Export | 24-bit WAV, project sample rate, normalization disabled |
-| Scope of revision | Varies by track; recorded per pair in `data/manifest.csv` |
-
-**Audio is not distributed in this repository.** The recordings are coursework
-containing an instructor's work and the author's unreleased material. See
-[`data/README.md`](data/README.md) for what is included instead and how the
-published metrics can be checked.
-
-## Method
-
-1. **Loudness normalization.** Revised versions may include master-bus
-   processing that raises level. Without normalization, that difference would be
-   misread as a mixing difference. All signals are matched before comparison.
-2. **Feature extraction.** Band energy distribution (with attention to the
-   200–500 Hz region), spectral centroid, rolloff, flatness, and dynamic range.
-3. **Paired differences.** Metrics are differenced within each pair
-   (revised − original) so that per-song variation does not confound the
-   comparison.
-4. **Pattern inspection.** Differences are examined across pairs for directions
-   that recur.
+**No audio is distributed in this repository.** Reference material is
+commercially released, and the coursework contains an instructor's work and the
+author's unreleased material. See [`data/README.md`](data/README.md) for what is
+published instead.
 
 ## Results
 
@@ -57,14 +59,15 @@ TBD
 
 ## Limitations
 
-TBD — sample size, the varying scope of revision across pairs, and the fact that
-spectral difference is not by itself evidence of perceptual improvement.
+TBD — spectral proximity to a reference is not the same as a good mix;
+instrumentation differences shift what the target should be; the validation set
+is small; agreement in direction is weaker evidence than agreement in magnitude.
 
 ## Repository structure
 
 ```
 data/        manifest and documentation (audio excluded)
-src/         feature extraction and normalization modules
+src/         normalization, feature extraction, suggestion logic
 notebooks/   exploratory analysis
 results/     computed metrics and figures
 paper/       write-up draft
@@ -81,5 +84,5 @@ TBD — entry point and usage.
 
 ## License
 
-Code: MIT. Audio and figures derived from coursework recordings are not licensed
-for redistribution.
+Code: MIT. Analysis of copyrighted reference material is limited to derived
+numerical features; no audio is redistributed.
